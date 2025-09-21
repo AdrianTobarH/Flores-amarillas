@@ -1,0 +1,97 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.*;
+
+public class FloresParaNicole extends JPanel {
+    private static final Color AMARILLO = new Color(255, 215, 0);
+    private static final Color VERDE = new Color(34, 139, 34);
+    private static final Color CIELO = new Color(135, 206, 235);
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        
+        // Fondo渐变
+        GradientPaint cielo = new GradientPaint(0, 0, CIELO, 0, getHeight(), Color.WHITE);
+        g2d.setPaint(cielo);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+
+        // Dibujar flores
+        dibujarRamo(g2d);
+        
+        // Mensaje romántico
+        g2d.setColor(new Color(139, 0, 0));
+        g2d.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 24));
+        String mensaje = "Para Nicole, mi sol 💛";
+        FontMetrics fm = g2d.getFontMetrics();
+        int x = (getWidth() - fm.stringWidth(mensaje)) / 2;
+        g2d.drawString(mensaje, x, 50);
+        
+        g2d.setFont(new Font("Serif", Font.PLAIN, 18));
+        String fecha = "21 de Septiembre - Nuestro día";
+        x = (getWidth() - fm.stringWidth(fecha)) / 2;
+        g2d.drawString(fecha, x, 80);
+    }
+
+    private void dibujarRamo(Graphics2D g2d) {
+        int[] xPoints = {300, 350, 400, 450, 500};
+        int[] yPoints = {400, 350, 300, 350, 400};
+        
+        // Tallos
+        g2d.setStroke(new BasicStroke(3));
+        g2d.setColor(VERDE);
+        for (int i = 0; i < xPoints.length; i++) {
+            Path2D tallo = new Path2D.Double();
+            tallo.moveTo(xPoints[i], yPoints[i] + 100);
+            tallo.curveTo(
+                xPoints[i] + 20, yPoints[i] + 50,
+                xPoints[i] - 20, yPoints[i] + 20,
+                xPoints[i], yPoints[i]
+            );
+            g2d.draw(tallo);
+        }
+
+        // Flores
+        for (int i = 0; i < xPoints.length; i++) {
+            // Pétalos
+            g2d.setColor(AMARILLO);
+            for (int j = 0; j < 8; j++) {
+                double angle = j * Math.PI / 4;
+                int petaloX = (int) (xPoints[i] + 15 * Math.cos(angle));
+                int petaloY = (int) (yPoints[i] + 15 * Math.sin(angle));
+                g2d.fillOval(petaloX - 10, petaloY - 10, 20, 20);
+            }
+            
+            // Centro de la flor
+            g2d.setColor(new Color(139, 69, 19));
+            g2d.fillOval(xPoints[i] - 5, yPoints[i] - 5, 10, 10);
+        }
+
+        // Hojas
+        g2d.setColor(VERDE);
+        for (int i = 0; i < xPoints.length; i++) {
+            Ellipse2D hoja = new Ellipse2D.Double(
+                xPoints[i] - 15, 
+                yPoints[i] + 30, 
+                10, 
+                20
+            );
+            g2d.rotate(Math.toRadians(-30), xPoints[i], yPoints[i] + 30);
+            g2d.fill(hoja);
+            g2d.rotate(Math.toRadians(30), xPoints[i], yPoints[i] + 30);
+        }
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Para Nicole 💛");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+        frame.add(new FloresParaNicole());
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
+        // Efecto de corazones flotantes
+        new Timer(100, e -> frame.repaint()).start();
+    }
+}
