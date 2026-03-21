@@ -1,97 +1,200 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.*;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Nicole 💛</title>
 
-public class FloresParaNicole extends JPanel {
-    private static final Color AMARILLO = new Color(255, 215, 0);
-    private static final Color VERDE = new Color(34, 139, 34);
-    private static final Color CIELO = new Color(135, 206, 235);
+<style>
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        
-        // Fondo渐变
-        GradientPaint cielo = new GradientPaint(0, 0, CIELO, 0, getHeight(), Color.WHITE);
-        g2d.setPaint(cielo);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Georgia", serif;
+    background: linear-gradient(#87ceeb, white);
+    text-align: center;
+}
 
-        // Dibujar flores
-        dibujarRamo(g2d);
-        
-        // Mensaje romántico
-        g2d.setColor(new Color(139, 0, 0));
-        g2d.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 24));
-        String mensaje = "Para Nicole, mi sol 💛";
-        FontMetrics fm = g2d.getFontMetrics();
-        int x = (getWidth() - fm.stringWidth(mensaje)) / 2;
-        g2d.drawString(mensaje, x, 50);
-        
-        g2d.setFont(new Font("Serif", Font.PLAIN, 18));
-        String fecha = "21 de Septiembre - Nuestro día";
-        x = (getWidth() - fm.stringWidth(fecha)) / 2;
-        g2d.drawString(fecha, x, 80);
+/* Texto principal */
+
+.mensaje {
+    position: absolute;
+    top: 8%;
+    width: 100%;
+    font-size: 40px;
+    font-style: italic;
+    color: #8B0000;
+}
+
+.submensaje {
+
+    position: absolute;
+    top: 16%;
+    width: 100%;
+    font-size: 22px;
+    color: #444;
+}
+
+/* Flores */
+
+.flor {
+
+    position: absolute;
+    width: 80px;
+    animation: crecer 3s ease-in-out infinite alternate;
+}
+
+@keyframes crecer {
+
+    from { transform: scale(0.9);}
+    to { transform: scale(1.1);}
+}
+
+/* corazones flotando */
+
+.corazon {
+
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 22px;
+    animation: flotar 6s linear infinite;
+}
+
+@keyframes flotar {
+
+    0% {
+        transform: translateY(0);
+        opacity: 1;
     }
 
-    private void dibujarRamo(Graphics2D g2d) {
-        int[] xPoints = {300, 350, 400, 450, 500};
-        int[] yPoints = {400, 350, 300, 350, 400};
-        
-        // Tallos
-        g2d.setStroke(new BasicStroke(3));
-        g2d.setColor(VERDE);
-        for (int i = 0; i < xPoints.length; i++) {
-            Path2D tallo = new Path2D.Double();
-            tallo.moveTo(xPoints[i], yPoints[i] + 100);
-            tallo.curveTo(
-                xPoints[i] + 20, yPoints[i] + 50,
-                xPoints[i] - 20, yPoints[i] + 20,
-                xPoints[i], yPoints[i]
-            );
-            g2d.draw(tallo);
-        }
+    100% {
 
-        // Flores
-        for (int i = 0; i < xPoints.length; i++) {
-            // Pétalos
-            g2d.setColor(AMARILLO);
-            for (int j = 0; j < 8; j++) {
-                double angle = j * Math.PI / 4;
-                int petaloX = (int) (xPoints[i] + 15 * Math.cos(angle));
-                int petaloY = (int) (yPoints[i] + 15 * Math.sin(angle));
-                g2d.fillOval(petaloX - 10, petaloY - 10, 20, 20);
-            }
-            
-            // Centro de la flor
-            g2d.setColor(new Color(139, 69, 19));
-            g2d.fillOval(xPoints[i] - 5, yPoints[i] - 5, 10, 10);
-        }
-
-        // Hojas
-        g2d.setColor(VERDE);
-        for (int i = 0; i < xPoints.length; i++) {
-            Ellipse2D hoja = new Ellipse2D.Double(
-                xPoints[i] - 15, 
-                yPoints[i] + 30, 
-                10, 
-                20
-            );
-            g2d.rotate(Math.toRadians(-30), xPoints[i], yPoints[i] + 30);
-            g2d.fill(hoja);
-            g2d.rotate(Math.toRadians(30), xPoints[i], yPoints[i] + 30);
-        }
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Para Nicole 💛");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.add(new FloresParaNicole());
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        
-        // Efecto de corazones flotantes
-        new Timer(100, e -> frame.repaint()).start();
+        transform: translateY(-800px);
+        opacity: 0;
     }
 }
+
+.boton {
+
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: gold;
+    border: none;
+    padding: 15px 35px;
+
+    font-size: 20px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+}
+
+.boton:hover {
+
+    background: orange;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="mensaje">
+
+Para Nicole, mi sol amarillo 💛
+
+</div>
+
+
+<div class="submensaje">
+
+Hoy quiero regalarte flores amarillas,  
+porque desde que llegaste a mi vida  
+todo tiene más luz 🌼
+
+</div>
+
+
+<button class="boton" onclick="mostrarMensaje()">
+
+Haz clic aquí Nicole 🌻
+
+</button>
+
+
+
+<script>
+
+/* generar flores */
+
+for(let i=0;i<7;i++){
+
+let flor=document.createElement("div")
+
+flor.innerHTML="🌼"
+
+flor.className="flor"
+
+flor.style.left=Math.random()*90+"%"
+
+flor.style.top=(60+Math.random()*30)+"%"
+
+flor.style.fontSize=(40+Math.random()*30)+"px"
+
+document.body.appendChild(flor)
+
+}
+
+
+/* generar corazones */
+
+setInterval(()=>{
+
+let corazon=document.createElement("div")
+
+corazon.innerHTML="💛"
+
+corazon.className="corazon"
+
+corazon.style.left=Math.random()*100+"%"
+
+corazon.style.bottom="0px"
+
+document.body.appendChild(corazon)
+
+setTimeout(()=>corazon.remove(),6000)
+
+},600)
+
+
+
+/* mensaje final romántico */
+
+function mostrarMensaje(){
+
+alert(
+
+`Nicole 💛
+
+Estas flores amarillas son solo un pequeño símbolo
+de lo mucho que significas para mí.
+
+Gracias por tu sonrisa,
+por tu ternura,
+y por hacer mis días más bonitos.
+
+Me haces feliz 🌼`
+)
+
+}
+
+</script>
+
+
+</body>
+</html>
