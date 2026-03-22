@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Nicole 💛</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Georgia;
+background:linear-gradient(#87ceeb, white);
+overflow:hidden;
+text-align:center;
+}
+
+/* titulo */
+
+.titulo{
+
+margin-top:60px;
+
+font-size:40px;
+
+color:#8B0000;
+
+font-style:italic;
+
+}
+
+/* subtitulo */
+
+.subtitulo{
+
+font-size:22px;
+
+color:#444;
+
+margin-top:10px;
+
+}
+
+/* flores */
+
+.flor{
+
+position:absolute;
+
+animation:crecer 3s infinite alternate ease-in-out;
+
+}
+
+@keyframes crecer{
+
+from{transform:scale(.9);}
+to{transform:scale(1.2);}
+
+}
+
+/* corazones */
+
+.corazon{
+
+position:absolute;
+
+font-size:22px;
+
+animation:flotar 6s linear infinite;
+
+}
+
+@keyframes flotar{
+
+0%{transform:translateY(0);opacity:1;}
+
+100%{transform:translateY(-800px);opacity:0;}
+
+}
+
+button{
+
+margin-top:80px;
+
+padding:15px 40px;
+
+border:none;
+
+background:gold;
+
+font-size:20px;
+
+border-radius:30px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:orange;
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="titulo">
+
+Para Nicole, mi sol amarillo 💛
+
+</div>
+
+
+<div class="subtitulo">
+
+Desde que llegaste a mi vida  
+todo tiene más luz 🌼
+
+</div>
+
+
+<button onclick="mensaje()">
+
+Haz clic aquí Nicole 🌻
+
+</button>
+
+
+<script>
+
+/* flores */
+
+for(let i=0;i<7;i++){
+
+let flor=document.createElement("div")
+
+flor.innerHTML="🌼"
+
+flor.className="flor"
+
+flor.style.left=Math.random()*90+"%"
+
+flor.style.top=(60+Math.random()*30)+"%"
+
+flor.style.fontSize=(40+Math.random()*30)+"px"
+
+document.body.appendChild(flor)
+
+}
+
+/* corazones */
+
+setInterval(()=>{
+
+let corazon=document.createElement("div")
+
+corazon.innerHTML="💛"
+
+corazon.className="corazon"
+
+corazon.style.left=Math.random()*100+"%"
+
+corazon.style.bottom="0px"
+
+document.body.appendChild(corazon)
+
+setTimeout(()=>corazon.remove(),6000)
+
+},600)
+
+
+function mensaje(){
+
+alert(`Nicole 💛
+
+Estas flores amarillas son solo un pequeño símbolo
+de lo mucho que significas para mí.
+
+Gracias por tu sonrisa,
+por tu ternura,
+y por hacer mis días más bonitos.
+
+Me haces feliz 🌼`)
+
+}
+
+</script>
+
+</body>
+</html>
